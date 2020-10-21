@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package video_cv;
+
+//TODO: refactor frame.proto out of avp and this project into a dedicated proto repo
+import "frame.proto";
+import "data_types.proto";
+
+
+// The greeting service definition.
+service VideoStreamingProcessor {
+  rpc Response (GestureRequest) returns (GestureRequestResponse) {}
+}
+
+// The request message containing the image.
+message GestureRequest {
+  string request_id = 1;
+  frame.Clip clip = 2;
+  enum GestureAlgorithmType {
+    TWENTYBN_REALTIMENET = 0;
+  }
+  GestureAlgorithmType type = 3;
+}
+
+// The response message containing the reply
+message GestureRequestResponse {
+  string request_id = 1;
+  string response_id = 2;
+  enum Status {
+    UNKNOWN = 0;
+    SUCCESS = 1;
+    FAILURE = 2;
+  }
+  Status status = 3;
+  enum Gesture {
+    DRINKING = 0;
+    SLEEPING = 1;
+    CALLING_SOMEONE_CLOSER = 2;
+    COVERING_EARS = 3;
+    COVERING_EYES = 4;
+    DABBING = 5;
+    DOING_NOTHING = 6;
+    DOING_OTHER_THINGS = 7;
+    FACEPALMING = 8;
+    NO_PERSON_VISIBLE = 9;
+    NODDING = 10;
+    POINTING_LEFT = 11;
+    POINTING_RIGHT = 12;
+    POINTING_TO_THE_CAMERA = 13;
+    PUTTING_FINGER_TO_MOUTH = 14;
+    ROLLING_HAND = 15;
+    SCRATCHING = 16;
+    SHAKING_HEAD = 17;
+    SHOWING_THE_MIDDLE_FINGER = 18;
+    SWIPING_DOWN = 19;
+    SWIPING_DOWN_WITH_TWO_HANDS = 20;
+    SWIPING_LEFT = 21;
+    SWIPING_RIGHT = 22;
+    SWIPING_UP = 23;
+    SWIPING_UP_WITH_TWO_HANDS = 24;
+    THUMB_DOWN = 25;
+    THUMB_UP = 26;
+    WAVING = 27;
+    ZOOMING_IN = 28;
+    ZOOMING_OUT = 29;
+  }
+  Gesture gesture = 4;
+}

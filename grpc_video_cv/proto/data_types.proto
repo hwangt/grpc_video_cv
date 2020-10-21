@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package annotator;
+
+message TensorKvp {
+  string key = 1;
+  Tensor val = 2;
+  enum TensorType {
+    UNKNOWN = 0;
+    PYTORCH = 1;
+    TENSORFLOW = 2;
+  }
+  TensorType val_type = 3;
+};
+
+// This type corresponds to a flattened Tensor, that can be reformed by reshaping according to the
+// dimensions specified by dim. For example, for a 2 x 3 matrix, elem would contain 6 values, dim would contain [2, 3],
+// and could you would recreate this Tensor by reading all elem into a flat torch.Tensor and then applying .view(2, 3)
+message Tensor {
+  repeated float elem = 1;
+  repeated int32 dim = 2;
+}
+
+message Vector3d {
+  float x = 1;
+  float y = 2;
+  float z = 3;
+};
+
+message HandLandmarks3d {
+  repeated Vector3d landmarks = 1;
+};

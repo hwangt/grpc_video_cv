@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package frame;
+option go_package = ".;frame";
+
+message Image {
+  string mid = 1;
+  uint32 height = 2;
+  uint32 width = 3;
+  uint32 sequence = 4;
+  bytes bytes = 5;
+}
+
+message Clip {
+  string mid = 1;
+  uint32 height = 2;
+  uint32 width = 3;
+  uint32 sequence_start = 4;
+  uint32 sequence_end = 5;
+  bytes bytes = 6;
+  uint32 count = 7;
+}
